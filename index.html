@@ -26,11 +26,12 @@
   </style>
 </head>
 <body>
-  <h1>Electron Auto Update Example    "version": "1.0.3",
+  <h1>Electron Auto Update Example    "version": "1.0.4",
   </h1>
   <p id="version"></p>
   <div id="notification" class="hidden">
     <p id="message"></p>
+    <div id="messages"></div>
     <button id="close-button" onClick="closeNotification()">
       Close
     </button>
@@ -63,6 +64,12 @@
       restartButton.classList.remove('hidden');
       notification.classList.remove('hidden');
     });
+
+    ipcRenderer.on('message', function(event, text) {
+      var container = document.getElementById('messages');
+      container.innerHTML = text;
+      container.appendChild(message);
+    })
 
     function closeNotification() {
       notification.classList.add('hidden');
